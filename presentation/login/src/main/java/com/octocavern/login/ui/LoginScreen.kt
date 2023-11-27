@@ -1,38 +1,52 @@
 package com.octocavern.login.ui
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
-import com.octocavern.login.ui.LoginViewModel
 import com.octocavern.ui.component.SimpleButton
 import com.octocavern.ui.theme.ShishkaTheme
 
 @Composable
-fun SecondScreen(
+fun LoginScreen(
     viewModel: LoginViewModel,
     navController: NavController,
-//    args: LoginFragmentArgs,
 ) {
     val uiState by viewModel.state.collectAsState()
 
+    LoginScreenContent(
+        uiState = uiState,
+        onBack = { navController.navigateUp() }
+    )
+}
+
+@Composable
+fun LoginScreenContent(
+    uiState: LoginUIState = LoginUIState(),
+    onBack: () -> Unit = {},
+) {
     ShishkaTheme {
-        Surface {
+        Surface(modifier = Modifier.fillMaxSize()) {
             Column {
-//                Text(text = args.testArg.toString())
                 SimpleButton(text = "Go to first fragment") {
-                    navController.navigateUp()
+                    onBack()
                 }
                 SimpleButton(text = "Fetch random joke from API") {
-                    viewModel.fetchRandomJoke()
                 }
                 if (uiState.isLoading) CircularProgressIndicator()
-                Text(text = uiState.joke)
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun PreviewLoginScreenContent() {
+    LoginScreenContent()
 }

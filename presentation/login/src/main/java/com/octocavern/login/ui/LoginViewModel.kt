@@ -1,6 +1,5 @@
 package com.octocavern.login.ui
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.octocavern.auth.FetchDataUseCase
@@ -21,14 +20,13 @@ class LoginViewModel @Inject constructor(
 
     fun fetchRandomJoke() {
         viewModelScope.launch {
-            _state.update { state -> state.loadingState() }
+            _state.update { state -> state.toLoading() }
             runCatching { fetchDataUseCase() }
                 .onFailure {
-                    Log.e("TEST", it.message ?: "Error fetching joke", it)
-                    _state.update { state -> state.errorState() }
+                    _state.update { state -> state.toError() }
                 }
                 .onSuccess {
-                    _state.update { state -> state.successState(it.value) }
+                    _state.update { state -> state.toSuccess() }
                 }
         }
     }

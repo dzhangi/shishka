@@ -1,22 +1,17 @@
 package com.octocavern.login.ui
 
 data class LoginUIState(
-    val joke: String = "",
     val isLoading: Boolean = false,
 ) {
-    fun successState(joke: String) =
-        copy(
-            isLoading = false,
-            joke = joke
-        )
-
-    fun loadingState() = copy(
-        isLoading = true,
-        joke = ""
+    fun toSuccess() = copy(
+        isLoading = false,
     )
 
-    fun errorState() = copy(
+    fun toLoading() = copy(
+        isLoading = true,
+    )
+
+    fun toError() = copy(
         isLoading = false,
-        joke = "Error fetching joke"
     )
 }

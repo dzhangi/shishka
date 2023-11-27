@@ -20,10 +20,9 @@ class LoginFragment : Fragment() {
     ): View {
         return ComposeView(requireActivity()).apply {
             setContent {
-                SecondScreen(
+                LoginScreen(
                     viewModel = viewModel,
                     navController = findNavController(),
-//                    args = args
                 )
             }
         }
