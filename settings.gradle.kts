@@ -13,7 +13,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "ModularSandbox"
+rootProject.name = "Shishka"
 include(":app")
 include(":data")
 include(":presentation:splash")

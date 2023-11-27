@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.sandbox.auth"
+    namespace = "com.octocavern.auth"
     compileSdk = 33
 
     defaultConfig {

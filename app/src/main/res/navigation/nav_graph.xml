@@ -6,14 +6,14 @@
 
     <fragment
         android:id="@+id/TestLoginFragment"
-        android:name="com.sandbox.login.ui.LoginFragment"
+        android:name="com.octocavern.login.ui.LoginFragment"
         android:label="Test Login Fragment">
-        <deepLink app:uri="android-app://com.sandbox.app/test_login_fragment" />
+        <deepLink app:uri="android-app://com.octocavern.app/test_login_fragment" />
     </fragment>
 
     <fragment
         android:id="@+id/TestSplashFragment"
-        android:name="com.sandbox.splash.ui.TestSplashFragment"
+        android:name="com.octocavern.splash.ui.TestSplashFragment"
         android:label="Test Splash Fragment" />
 
 </navigation>
