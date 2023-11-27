@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.sandbox.modularsandbox"
+    namespace = "com.octocavern.shishka"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.sandbox.modularsandbox"
+        applicationId = "com.octocavern.shishka"
         minSdk = 29
         targetSdk = 33
         versionCode = 1

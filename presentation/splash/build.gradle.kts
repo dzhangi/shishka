@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.sandbox.modularsandbox"
+    namespace = "com.octocavern.shishka"
     compileSdk = 34
 
     defaultConfig {
