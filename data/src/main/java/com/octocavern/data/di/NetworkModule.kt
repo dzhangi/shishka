@@ -1,6 +1,6 @@
 package com.octocavern.data.di
 
-import com.octocavern.data.remote.JokeApi
+import com.octocavern.data.remote.TaigaApi
 import com.octocavern.data.util.Constants.Companion.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -15,10 +15,10 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class DataModule {
+class NetworkModule {
     @Provides
     @Singleton
-    fun provideApiService(retrofit: Retrofit): JokeApi = retrofit.create(JokeApi::class.java)
+    fun provideApiService(retrofit: Retrofit): TaigaApi = retrofit.create(TaigaApi::class.java)
 
     @Provides
     @Singleton
