@@ -1,6 +1,8 @@
 package com.octocavern.data.di
 
+import com.octocavern.data.local.ShishkaPrefs
 import com.octocavern.data.remote.TaigaApi
+import com.octocavern.data.remote.interceptor.TokenCacheInterceptor
 import com.octocavern.data.util.Constants.Companion.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -22,15 +24,35 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(): Retrofit = Retrofit.Builder()
+    fun provideTokenCacheInterceptor(prefs: ShishkaPrefs): TokenCacheInterceptor {
+        return TokenCacheInterceptor(prefs)
+    }
+
+    @Provides
+    @Singleton
+    fun providesLoggingInterceptor(): HttpLoggingInterceptor {
+        return HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
+    }
+
+    @Provides
+    @Singleton
+    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
-        .client(provideHttpClient())
+        .client(okHttpClient)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    private fun provideHttpClient() = OkHttpClient.Builder()
-        .addInterceptor(HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
-        })
-        .build()
+    @Provides
+    @Singleton
+    fun provideHttpClient(
+        tokenCacheInterceptor: TokenCacheInterceptor,
+        loggingInterceptor: HttpLoggingInterceptor
+    ): OkHttpClient {
+        return OkHttpClient.Builder()
+            .addInterceptor(tokenCacheInterceptor)
+            .addInterceptor(loggingInterceptor)
+            .build()
+    }
 }

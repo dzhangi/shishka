@@ -22,13 +22,19 @@ class LoginViewModel @Inject constructor(
     fun onLogin(login: String, pass: String) {
         Log.i("LOGIN_TEST", "login: $login | pass: $pass")
         viewModelScope.launch {
-            _state.update { it.toLoading() }
-            val authDetails = loginUseCase(login, pass)
-            Log.i(
-                "LOGIN_TEST",
-                "${authDetails.id} | ${authDetails.fullName} | ${authDetails.email}"
-            )
-            _state.update { it.toSuccess() }
+            _state.update { state -> state.toLoading() }
+            runCatching { loginUseCase(login, pass) }
+                .onSuccess { authDetails ->
+                    Log.i(
+                        "LOGIN_TEST",
+                        "${authDetails.id} | ${authDetails.fullName} | ${authDetails.email}"
+                    )
+                    _state.update { state -> state.toSuccess() }
+                }
+                .onFailure {
+                    Log.i("LOGIN_TEST", "error: $it")
+                    _state.update { state -> state.toError() }
+                }
         }
     }
 
