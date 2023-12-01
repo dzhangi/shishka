@@ -16,11 +16,11 @@ import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * A simple [Fragment] subclass.
- * Use the [TestSplashFragment.newInstance] factory method to
+ * Use the [SplashFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
 @AndroidEntryPoint
-class TestSplashFragment : Fragment() {
+class SplashFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +32,7 @@ class TestSplashFragment : Fragment() {
                     Surface {
                         SimpleButton(text = "Go to second fragment") {
                             val request = NavDeepLinkRequest.Builder
-                                .fromUri("android-app://com.octocavern.app/test_login_fragment".toUri())
+                                .fromUri("android-app://com.octocavern.app/login_fragment".toUri())
                                 .build()
                             findNavController().navigate(request)
                         }
