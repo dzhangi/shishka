@@ -46,7 +46,7 @@ class TokenRefreshInterceptor(
                 )
                 val refreshRequestBodyStr =
                     gson.toJson(RefreshTokenRequest(prefs.getRefreshToken()!!))
-                val refreshResponse = makeRefreshRequets(refreshRequestBodyStr, chain)
+                val refreshResponse = makeRefreshRequest(refreshRequestBodyStr, chain)
 
                 val refreshBodyStr = refreshResponse
                     .peekBody(PEEK_BODY_LIMIT.toLong())
@@ -72,7 +72,7 @@ class TokenRefreshInterceptor(
         }
     }
 
-    private fun makeRefreshRequets(
+    private fun makeRefreshRequest(
         refreshRequestBodyStr: String,
         chain: Interceptor.Chain
     ): Response {
