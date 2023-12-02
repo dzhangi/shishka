@@ -2,6 +2,8 @@ package com.octocavern.data.local
 
 import android.content.Context
 import android.util.Log
+import androidx.core.content.edit
+
 
 class ShishkaPrefs(context: Context) {
     private val prefs = context.getSharedPreferences(PREFS_TAG, Context.MODE_PRIVATE)
@@ -24,6 +26,14 @@ class ShishkaPrefs(context: Context) {
     fun getRefreshToken(): String? {
         Log.i(PREFS_TAG, "getRefreshToken: ")
         return prefs.getString(REFRESH_TOKEN_KEY, null)
+    }
+
+    fun clearTokens() {
+        Log.i(PREFS_TAG, "clearTokens: ")
+        prefs.edit {
+            remove(AUTH_TOKEN_KEY)
+            remove(REFRESH_TOKEN_KEY)
+        }
     }
 
     companion object {
