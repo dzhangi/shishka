@@ -14,28 +14,30 @@ class TokenCacheInterceptor(private val prefs: ShishkaPrefs) : Interceptor {
         val request = chain.request()
         val response = chain.proceed(request)
 
-        if (!request.url.toString().endsWith(AUTH_ENDPOINT)) {
-            Log.i("LOGIN_TEST", "Not auth request: ${request.url}")
-            return response
-        }
+        return when {
+            !request.url.toString().endsWith(AUTH_ENDPOINT) -> {
+                Log.i("LOGIN_TEST", "Not auth request: ${request.url}")
+                response
+            }
 
-        if (response.isSuccessful && response.code == 200) {
-            Log.i("LOGIN_TEST", "response: ${response.code}")
-            response
-                .peekBody(Long.MAX_VALUE)
-                .string()
-                .let { bodyStr ->
-                    if (bodyStr.isNotEmpty()) {
-                        val jsonObject = JSONObject(bodyStr)
+            response.isSuccessful && response.code == 200 -> {
+                Log.i("LOGIN_TEST", "response: ${response.code}")
+                val bodyStr = response
+                    .peekBody(Long.MAX_VALUE)
+                    .string()
+                runCatching { JSONObject(bodyStr) }
+                    .onSuccess { jsonObject ->
                         runCatching { jsonObject.getString(REFRESH_TOKEN) }
                             .onSuccess { prefs.saveRefreshToken(it) }
                             .onFailure { it.printStackTrace() }
                         runCatching { jsonObject.getString(AUTH_TOKEN) }
                             .onSuccess { prefs.saveToken(it) }
                             .onFailure { it.printStackTrace() }
-                    }
-                }
+                    }.onFailure { it.printStackTrace() }
+                response
+            }
+
+            else -> response
         }
-        return response
     }
 }
