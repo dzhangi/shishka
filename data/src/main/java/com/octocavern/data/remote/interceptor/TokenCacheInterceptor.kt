@@ -2,9 +2,11 @@ package com.octocavern.data.remote.interceptor
 
 import android.util.Log
 import com.octocavern.data.local.ShishkaPrefs
-import com.octocavern.data.util.Constants.Companion.AUTH_ENDPOINT
-import com.octocavern.data.util.Constants.Companion.AUTH_TOKEN
-import com.octocavern.data.util.Constants.Companion.REFRESH_TOKEN
+import com.octocavern.data.util.LogTags.TOKEN_CACHE_INTERCEPTOR
+import com.octocavern.data.util.MISC
+import com.octocavern.data.util.URL.AUTH_ENDPOINT
+import com.octocavern.data.util.URL.AUTH_TOKEN
+import com.octocavern.data.util.URL.REFRESH_TOKEN
 import okhttp3.Interceptor
 import okhttp3.Response
 import org.json.JSONObject
@@ -16,14 +18,20 @@ class TokenCacheInterceptor(private val prefs: ShishkaPrefs) : Interceptor {
 
         return when {
             !request.url.toString().endsWith(AUTH_ENDPOINT) -> {
-                Log.i("LOGIN_TEST", "Not auth request: ${request.url}")
+                Log.i(
+                    TOKEN_CACHE_INTERCEPTOR,
+                    "Skip not auth request: request ${request.url} response ${response.code}"
+                )
                 response
             }
 
             response.isSuccessful && response.code == 200 -> {
-                Log.i("LOGIN_TEST", "response: ${response.code}")
+                Log.i(
+                    TOKEN_CACHE_INTERCEPTOR,
+                    "Start caching processing: request ${request.url} response ${response.code}"
+                )
                 val bodyStr = response
-                    .peekBody(Long.MAX_VALUE)
+                    .peekBody(MISC.PEEK_BODY_LIMIT.toLong())
                     .string()
                 runCatching { JSONObject(bodyStr) }
                     .onSuccess { jsonObject ->
@@ -37,7 +45,13 @@ class TokenCacheInterceptor(private val prefs: ShishkaPrefs) : Interceptor {
                 response
             }
 
-            else -> response
+            else -> {
+                Log.i(
+                    TOKEN_CACHE_INTERCEPTOR,
+                    "Other scenario: request ${request.url} response ${response.code}"
+                )
+                response
+            }
         }
     }
 }

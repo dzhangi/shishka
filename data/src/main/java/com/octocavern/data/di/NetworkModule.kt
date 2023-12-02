@@ -5,7 +5,7 @@ import com.octocavern.data.local.ShishkaPrefs
 import com.octocavern.data.remote.TaigaApi
 import com.octocavern.data.remote.interceptor.TokenCacheInterceptor
 import com.octocavern.data.remote.interceptor.TokenRefreshInterceptor
-import com.octocavern.data.util.Constants.Companion.BASE_URL
+import com.octocavern.data.util.URL.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -41,7 +41,7 @@ class NetworkModule {
         prefs: ShishkaPrefs,
         gson: Gson
     ): TokenRefreshInterceptor {
-        return TokenRefreshInterceptor(prefs, gson      )
+        return TokenRefreshInterceptor(prefs, gson)
     }
 
     @Provides
