@@ -46,33 +46,52 @@ class TokenRefreshInterceptor(
                 )
                 val refreshRequestBodyStr =
                     gson.toJson(RefreshTokenRequest(prefs.getRefreshToken()!!))
-                val refreshRequest = Request.Builder()
-                    .url(BASE_URL + REFRESH_ENDPOINT)
-                    .post(refreshRequestBodyStr.toRequestBody("application/json".toMediaType()))
-                    .build()
-                val refreshResponse = chain.proceed(refreshRequest)
+                val refreshResponse = makeRefreshRequets(refreshRequestBodyStr, chain)
 
                 val refreshBodyStr = refreshResponse
                     .peekBody(PEEK_BODY_LIMIT.toLong())
                     .string()
 
-                if (refreshBodyStr.isNotEmpty()) {
-                    val jsonObject = JSONObject(refreshBodyStr)
-                    val refreshToken = jsonObject.getString(REFRESH_TOKEN)
-                    val authToken = jsonObject.getString(AUTH_TOKEN)
-                    val retryWithTokenRequest = originalRequest
-                        .newBuilder()
-                        .header("Authorization", "Bearer $authToken")
-                        .build()
-                    response = chain.proceed(retryWithTokenRequest)
-
-                    prefs.saveToken(authToken)
-                    prefs.saveRefreshToken(refreshToken)
-                }
+                runCatching { JSONObject(refreshBodyStr) }
+                    .onSuccess { jsonObject ->
+                        runCatching { jsonObject.getString(REFRESH_TOKEN) }
+                            .onSuccess { prefs.saveRefreshToken(it) }
+                            .onFailure { it.printStackTrace() }
+                        runCatching { jsonObject.getString(AUTH_TOKEN) }
+                            .onSuccess {
+                                response =
+                                    retryOriginalRequestWithNewToken(originalRequest, it, chain)
+                                prefs.saveToken(it)
+                            }
+                            .onFailure { it.printStackTrace() }
+                    }
                 response
             }
 
             else -> response
         }
+    }
+
+    private fun makeRefreshRequets(
+        refreshRequestBodyStr: String,
+        chain: Interceptor.Chain
+    ): Response {
+        val refreshRequest = Request.Builder()
+            .url(BASE_URL + REFRESH_ENDPOINT)
+            .post(refreshRequestBodyStr.toRequestBody("application/json".toMediaType()))
+            .build()
+        return chain.proceed(refreshRequest)
+    }
+
+    private fun retryOriginalRequestWithNewToken(
+        originalRequest: Request,
+        it: String?,
+        chain: Interceptor.Chain
+    ): Response {
+        val retryWithTokenRequest = originalRequest
+            .newBuilder()
+            .header("Authorization", "Bearer $it")
+            .build()
+        return chain.proceed(retryWithTokenRequest)
     }
 }
