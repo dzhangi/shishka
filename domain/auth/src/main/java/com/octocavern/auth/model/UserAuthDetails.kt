@@ -1,4 +1,4 @@
-package com.octocavern.auth.data
+package com.octocavern.auth.model
 
 import com.octocavern.data.model.UserAuthDetailsDto
 

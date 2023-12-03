@@ -1,7 +1,7 @@
 package com.octocavern.auth
 
-import com.octocavern.auth.data.UserAuthDetails
-import com.octocavern.auth.data.toDomainModel
+import com.octocavern.auth.model.UserAuthDetails
+import com.octocavern.auth.model.toDomainModel
 import com.octocavern.data.repository.AuthRepository
 import javax.inject.Inject
 
