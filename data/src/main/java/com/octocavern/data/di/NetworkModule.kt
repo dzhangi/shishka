@@ -10,6 +10,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -31,22 +32,25 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideTokenCacheInterceptor(prefs: ShishkaPrefs): TokenCacheInterceptor {
+    @CacheToken
+    fun provideTokenCacheInterceptor(prefs: ShishkaPrefs): Interceptor {
         return TokenCacheInterceptor(prefs)
     }
 
     @Provides
     @Singleton
+    @RefreshToken
     fun provideRefreshTokenInterceptor(
         prefs: ShishkaPrefs,
         gson: Gson
-    ): TokenRefreshInterceptor {
+    ): Interceptor {
         return TokenRefreshInterceptor(prefs, gson)
     }
 
     @Provides
     @Singleton
-    fun providesLoggingInterceptor(): HttpLoggingInterceptor {
+    @Logging
+    fun providesLoggingInterceptor(): Interceptor {
         return HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
@@ -63,14 +67,14 @@ class NetworkModule {
     @Provides
     @Singleton
     fun provideHttpClient(
-        tokenCacheInterceptor: TokenCacheInterceptor,
-        loggingInterceptor: HttpLoggingInterceptor,
-        tokenRefreshInterceptor: TokenRefreshInterceptor,
+        @CacheToken cacheToken: Interceptor,
+        @RefreshToken refreshToken: Interceptor,
+        @Logging logging: Interceptor,
     ): OkHttpClient {
         return OkHttpClient.Builder()
-            .addInterceptor(tokenRefreshInterceptor)
-            .addInterceptor(tokenCacheInterceptor)
-            .addInterceptor(loggingInterceptor)
+            .addInterceptor(logging)
+            .addInterceptor(cacheToken)
+            .addInterceptor(refreshToken)
             .build()
     }
 }
