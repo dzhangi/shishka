@@ -20,7 +20,7 @@ class AuthRepository @Inject constructor(private val api: TaigaApi) {
             )
         )
 
-        if (!response.isSuccessful) throw Exception(response.extractErrorMessage("details"))
+        if (!response.isSuccessful) throw Exception(response.extractErrorMessage("detail"))
 
         return response.body()!!
     }
