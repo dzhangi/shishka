@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/LoginFragment"
-        android:name="com.octocavern.login.ui.LoginFragment"
+        android:name="com.octocavern.auth.ui.LoginFragment"
         android:label="Test Login Fragment">
         <deepLink app:uri="android-app://com.octocavern.app/login_fragment" />
     </fragment>

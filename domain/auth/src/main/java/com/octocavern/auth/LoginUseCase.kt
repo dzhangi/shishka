@@ -2,6 +2,7 @@ package com.octocavern.auth
 
 import com.octocavern.auth.model.UserAuthDetails
 import com.octocavern.auth.model.toDomainModel
+import com.octocavern.auth.util.AuthError
 import com.octocavern.data.repository.AuthRepository
 import javax.inject.Inject
 
@@ -12,12 +13,19 @@ class LoginUseCase @Inject constructor(
     suspend operator fun invoke(
         login: String,
         password: String,
-        type: String = "normal"
+        type: String = NORMAL,
     ): UserAuthDetails {
+        if (login.isEmpty()) throw AuthError.EmptyLogin
+        if (password.isEmpty()) throw AuthError.EmptyPassword
+
         return authRepo.login(
-            login = login,
-            password = password,
+            login = login.trim(),
+            password = password.trim(),
             type = type
         ).toDomainModel()
+    }
+
+    companion object LoginType {
+        private const val NORMAL = "normal"
     }
 }

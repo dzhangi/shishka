@@ -1,4 +1,4 @@
-package com.octocavern.login.ui
+package com.octocavern.auth.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater

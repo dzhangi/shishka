@@ -1,4 +1,4 @@
-package com.octocavern.login.ui
+package com.octocavern.auth.ui
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -88,7 +88,7 @@ fun LoginScreenContent(
                     onValueChange = { login.value = it },
                     label = { if (!uiState.isLoginError) Text("login") },
                     isError = uiState.isLoginError,
-                    supportingText = { if (uiState.isLoginError) Text("incorrect login") },
+                    supportingText = { if (uiState.isLoginError) Text(uiState.loginErrorMessage) },
                 )
                 TextField(
                     modifier = Modifier.fillMaxWidth(),
@@ -98,7 +98,7 @@ fun LoginScreenContent(
                     onValueChange = { password.value = it },
                     label = { if (!uiState.isPasswordError) Text("password") },
                     isError = uiState.isPasswordError,
-                    supportingText = { if (uiState.isPasswordError) Text("incorrect password") }
+                    supportingText = { if (uiState.isPasswordError) Text(uiState.passwordErrorMessage) }
                 )
                 Button(
                     modifier = Modifier

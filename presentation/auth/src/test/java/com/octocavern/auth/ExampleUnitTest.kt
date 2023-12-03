@@ -1,4 +1,4 @@
-package com.octocavern.login
+package com.octocavern.auth
 
 import org.junit.Test
 
