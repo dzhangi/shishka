@@ -17,7 +17,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "GitHub Action:\n<${{ github.event.pull_request.html_url || github.event.head_commit.url }}|View>"
+                    "text": "New commits:\n<${{ github.event.pull_request.html_url}}|Pull request>"
                   }
                 }
               ]
