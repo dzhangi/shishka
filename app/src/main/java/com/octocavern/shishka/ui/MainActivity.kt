@@ -22,6 +22,8 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         Log.i("TEST", test)
     }
+
     /**
+     * Dumb changes for dumb commits
      */
 }
