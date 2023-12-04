@@ -17,6 +17,6 @@ rootProject.name = "Shishka"
 include(":app")
 include(":data")
 include(":presentation:splash")
-include(":presentation:login")
+include(":presentation:auth")
 include(":core:ui")
 include(":domain:auth")

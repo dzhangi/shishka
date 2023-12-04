@@ -60,5 +60,5 @@ dependencies {
     coroutines()
 
     implementation(project(mapOf("path" to ":presentation:splash")))
-    implementation(project(mapOf("path" to ":presentation:login")))
+    implementation(project(mapOf("path" to ":presentation:auth")))
 }

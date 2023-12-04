@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="empty_login">login can\'t be empty</string>
+    <string name="empty_password">password can\'t be empty</string>
+    <string name="invalid_credentials">invalid_credentials</string>
+    <string name="something_went_wrong">something went wrong</string>
+</resources>

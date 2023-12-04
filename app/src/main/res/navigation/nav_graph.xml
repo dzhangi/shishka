@@ -2,18 +2,18 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/TestSplashFragment">
+    app:startDestination="@id/SplashFragment">
 
     <fragment
-        android:id="@+id/TestLoginFragment"
-        android:name="com.octocavern.login.ui.LoginFragment"
+        android:id="@+id/LoginFragment"
+        android:name="com.octocavern.auth.ui.LoginFragment"
         android:label="Test Login Fragment">
-        <deepLink app:uri="android-app://com.octocavern.app/test_login_fragment" />
+        <deepLink app:uri="android-app://com.octocavern.app/login_fragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/TestSplashFragment"
-        android:name="com.octocavern.splash.ui.TestSplashFragment"
+        android:id="@+id/SplashFragment"
+        android:name="com.octocavern.splash.ui.SplashFragment"
         android:label="Test Splash Fragment" />
 
 </navigation>
