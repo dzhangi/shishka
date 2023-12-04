@@ -11,12 +11,12 @@ import com.octocavern.data.util.URL.AUTH_TOKEN
 import com.octocavern.data.util.URL.BASE_URL
 import com.octocavern.data.util.URL.REFRESH_ENDPOINT
 import com.octocavern.data.util.URL.REFRESH_TOKEN
+import com.octocavern.data.util.extractJsonField
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
-import org.json.JSONObject
 
 class TokenRefreshInterceptor(
     private val prefs: ShishkaPrefs,
@@ -52,19 +52,11 @@ class TokenRefreshInterceptor(
                     .peekBody(PEEK_BODY_LIMIT.toLong())
                     .string()
 
-                runCatching { JSONObject(refreshBodyStr) }
-                    .onSuccess { jsonObject ->
-                        runCatching { jsonObject.getString(REFRESH_TOKEN) }
-                            .onSuccess { prefs.saveRefreshToken(it) }
-                            .onFailure { it.printStackTrace() }
-                        runCatching { jsonObject.getString(AUTH_TOKEN) }
-                            .onSuccess {
-                                response =
-                                    retryOriginalRequestWithNewToken(originalRequest, it, chain)
-                                prefs.saveToken(it)
-                            }
-                            .onFailure { it.printStackTrace() }
-                    }
+                refreshBodyStr.extractJsonField(REFRESH_TOKEN)?.let { prefs.saveRefreshToken(it) }
+                refreshBodyStr.extractJsonField(AUTH_TOKEN)?.let {
+                    response = retryOriginalRequestWithNewToken(originalRequest, it, chain)
+                    prefs.saveToken(it)
+                }
                 response
             }
 
