@@ -16,7 +16,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "New commit from:\n*${{ github.event.pull_request.user.login }}*"
+                    "text": "New commit from:\n*${{ github.event.pusher.name }}*"
                   }
                 },
                 {
