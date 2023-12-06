@@ -1,3 +1,3 @@
 package com.octocavern.data.remote
 
-interface TaigaApi : AuthApi
+interface TaigaApi : AuthApi, ProjectApi
