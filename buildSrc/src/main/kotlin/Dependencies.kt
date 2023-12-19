@@ -38,6 +38,11 @@ object Dependencies {
     const val composeUiTestJunit4 = "androidx.compose.ui:ui-test-junit4"
     const val composeUiTooling = "androidx.compose.ui:ui-tooling"
     const val composeUiTestManifest = "androidx.compose.ui:ui-test-manifest"
+
+    const val composeIconsCore =
+        "androidx.compose.material:material-icons-core:${Versions.composeIcons}"
+    const val composeIconsExt =
+        "androidx.compose.material:material-icons-extended:${Versions.composeIcons}"
 }
 
 fun DependencyHandler.essentials() {
@@ -87,4 +92,9 @@ fun DependencyHandler.compose(composeBom: Dependency) {
     androidTestImpl(Dependencies.composeUiTestJunit4)
     debugImpl(Dependencies.composeUiTooling)
     debugImpl(Dependencies.composeUiTestManifest)
+}
+
+fun DependencyHandler.composeIcons() {
+    impl(Dependencies.composeIconsCore)
+    impl(Dependencies.composeIconsExt)
 }
