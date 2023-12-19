@@ -8,12 +8,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material.icons.outlined.Public
 import androidx.compose.material.icons.outlined.RemoveRedEye
-import androidx.compose.material3.Card
+import androidx.compose.material.icons.outlined.VpnKey
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -24,6 +27,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -70,41 +74,47 @@ fun ProjectItem(
     project: Project,
     onClick: (Project) -> Unit,
 ) {
-    Surface(modifier = Modifier.fillMaxWidth()) {
-        Card(
-            modifier = Modifier.padding(4.dp),
-            onClick = { onClick(project) }
+    Surface(
+        modifier = Modifier.fillMaxWidth(),
+        color = MaterialTheme.colorScheme.background,
+        onClick = { onClick(project) },
+    ) {
+        Row(
+            modifier = Modifier.padding(vertical = 8.dp, horizontal = 8.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Row(
-                modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                LetterAvatar(letter = project.name.first(), modifier = Modifier.size(48.dp))
-                Column(modifier = Modifier.padding(horizontal = 8.dp)) {
-                    Text(
-                        text = project.name,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Text(text = project.slug)
-                    Spacer(modifier = Modifier.size(4.dp))
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Center
-                    ) {
-                        ProjectInfo(icon = Icons.Outlined.Person, count = project.members)
-                        Spacer(modifier = Modifier.size(2.dp))
-                        ProjectInfo(icon = Icons.Outlined.RemoveRedEye, count = project.watchers)
+            LetterAvatar(letter = project.name.first(), modifier = Modifier.size(48.dp))
+            Column(modifier = Modifier.padding(horizontal = 8.dp)) {
+                Text(
+                    text = project.name,
+                    fontWeight = FontWeight.Bold
+                )
+                Text(text = project.slug)
+                Spacer(modifier = Modifier.size(4.dp))
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    ProjectInfo(icon = Icons.Outlined.Person, count = project.members)
+                    Spacer(modifier = Modifier.size(2.dp))
+                    ProjectInfo(icon = Icons.Outlined.RemoveRedEye, count = project.watchers)
+                    Spacer(modifier = Modifier.width(6.dp))
+                    if (project.isPrivate) {
+                        ProjectInfo(icon = Icons.Outlined.Public)
+                    } else {
+                        ProjectInfo(icon = Icons.Outlined.VpnKey)
                     }
                 }
             }
         }
     }
+    Divider(thickness = 0.5.dp, color = Color.Black)
 }
 
 @Composable
 fun ProjectInfo(
     icon: ImageVector,
-    count: String,
+    count: String = "",
     iconDescription: String = "",
 ) {
     Row(
@@ -116,10 +126,12 @@ fun ProjectInfo(
             imageVector = icon,
             contentDescription = iconDescription,
         )
-        Text(
-            text = count,
-            style = MaterialTheme.typography.bodySmall
-        )
+        if (count.isNotEmpty()) {
+            Text(
+                text = count,
+                style = MaterialTheme.typography.bodySmall
+            )
+        }
     }
 }
 
@@ -136,36 +148,40 @@ fun ProjectsScreenPreview() {
                     "KGBT+",
                     "Some random project",
                     "Project for projecting",
-                    "3",
+                    "1",
                     "",
-                    "5"
+                    "5",
+                    false
                 ),
                 Project(
                     69,
                     "KGBT+",
                     "Some random project",
                     "Project for projecting",
-                    "3",
+                    "44",
                     "",
-                    "5"
+                    "5",
+                    true
                 ),
                 Project(
                     69,
                     "KGBT+",
                     "Some random project",
                     "Project for projecting",
-                    "3",
+                    "13",
                     "",
-                    "5"
+                    "58",
+                    false,
                 ),
                 Project(
                     69,
                     "KGBT+",
                     "Some random project",
                     "Project for projecting",
-                    "3",
+                    "235",
                     "",
-                    "5"
+                    "124",
+                    false
                 ),
             )
         ),

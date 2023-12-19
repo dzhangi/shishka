@@ -40,7 +40,7 @@ fun LetterAvatar(letter: Char, modifier: Modifier = Modifier) {
             )
 
             drawTextCentered(
-                text = letter.toString(),
+                text = letter.uppercase(),
                 x = canvasWidth / 2,
                 y = canvasHeight / 2,
                 fontSize = canvasWidth * 0.5f,

@@ -10,6 +10,7 @@ data class Project(
     val members: String,
     val iconUrl: String,
     val watchers: String,
+    val isPrivate: Boolean,
 )
 
 fun ProjectDto.toDomainModel() = Project(
@@ -20,4 +21,5 @@ fun ProjectDto.toDomainModel() = Project(
     members = members.size.toString(),
     iconUrl = logoSmallUrl ?: "",
     watchers = totalWatchers.toString(),
+    isPrivate = isPrivate,
 )
