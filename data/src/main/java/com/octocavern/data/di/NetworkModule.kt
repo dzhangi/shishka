@@ -3,6 +3,7 @@ package com.octocavern.data.di
 import com.google.gson.Gson
 import com.octocavern.data.local.ShishkaPrefs
 import com.octocavern.data.remote.TaigaApi
+import com.octocavern.data.remote.interceptor.AuthInterceptor
 import com.octocavern.data.remote.interceptor.TokenCacheInterceptor
 import com.octocavern.data.remote.interceptor.TokenRefreshInterceptor
 import com.octocavern.data.util.URL.BASE_URL
@@ -29,6 +30,13 @@ class NetworkModule {
     @Provides
     @Singleton
     fun provideApiService(retrofit: Retrofit): TaigaApi = retrofit.create(TaigaApi::class.java)
+
+    @Provides
+    @Singleton
+    @Auth
+    fun provideAuthInterceptor(prefs: ShishkaPrefs): Interceptor {
+        return AuthInterceptor(prefs)
+    }
 
     @Provides
     @Singleton
@@ -69,12 +77,14 @@ class NetworkModule {
     fun provideHttpClient(
         @CacheToken cacheToken: Interceptor,
         @RefreshToken refreshToken: Interceptor,
+        @Auth authInterceptor: Interceptor,
         @Logging logging: Interceptor,
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(logging)
             .addInterceptor(cacheToken)
             .addInterceptor(refreshToken)
+            .addInterceptor(authInterceptor)
             .build()
     }
 }

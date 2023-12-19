@@ -50,6 +50,10 @@ class LoginViewModel @Inject constructor(
         }
     }
 
+    fun resetState() {
+        _state.update { state -> state.toInit() }
+    }
+
     fun onLogin(login: String, pass: String) {
         Log.i("LOGIN_TEST", "login: $login | pass: $pass")
         viewModelScope.launch {
