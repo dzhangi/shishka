@@ -64,7 +64,7 @@ data class ProjectDto(
     @SerializedName("logo_big_url")
     val logoBigUrl: Any,
     @SerializedName("logo_small_url")
-    val logoSmallUrl: Any,
+    val logoSmallUrl: String?,
     @SerializedName("looking_for_people_note")
     val lookingForPeopleNote: String,
     @SerializedName("members")

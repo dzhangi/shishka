@@ -1,12 +1,13 @@
 package com.octocavern.project
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.octocavern.project.model.Project
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,14 +22,15 @@ class ProjectsViewModel @Inject constructor(
 
     init {
         getProjects()
-        viewModelScope.launch {
-            println(Thread.currentThread().name)
-        }
     }
 
     private fun getProjects() {
         viewModelScope.launch {
             _state.value = ProjectsUIState(projects = getProjectsUseCase(), isLoading = false)
         }
+    }
+
+    fun onProjectClick(project: Project) {
+        Log.i("ON_PROJ_CLICK", "Project: ${project.id} ${project.name} ${project.slug}")
     }
 }
