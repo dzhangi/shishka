@@ -72,7 +72,7 @@ data class ProjectDto(
     @SerializedName("modified_date")
     val modifiedDate: String,
     @SerializedName("my_homepage")
-    val myHomepage: Int,
+    val myHomepage: Any, // in some cases this field is boolean, but in other it is int ???
     @SerializedName("my_permissions")
     val myPermissions: List<String>,
     @SerializedName("name")
