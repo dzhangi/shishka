@@ -54,7 +54,7 @@ class LoginViewModel @Inject constructor(
         _state.update { state -> state.toInit() }
     }
 
-    fun onLogin(login: String, pass: String) {
+    fun signIn(login: String, pass: String) {
         Log.i("LOGIN_TEST", "login: $login | pass: $pass")
         viewModelScope.launch {
             _state.update { state -> state.toLoading() }
@@ -72,7 +72,7 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun onSignUp() {
+    fun signUp() {
         Log.i("LOGIN_TEST", "sign up was clicked")
     }
 }

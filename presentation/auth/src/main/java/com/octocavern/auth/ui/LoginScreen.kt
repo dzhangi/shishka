@@ -49,8 +49,8 @@ fun LoginScreen(
 
     LoginScreenContent(
         uiState = uiState,
-        onLogin = { login, pass -> viewModel.onLogin(login, pass) },
-        onSignUp = { viewModel.onSignUp() },
+        onLogin = { login, pass -> viewModel.signIn(login, pass) },
+        onSignUp = { viewModel.signUp() },
         onSuccessLogin = { navController.navigate(NavRequests.PROJECTS_SCREEN) },
     )
 }
