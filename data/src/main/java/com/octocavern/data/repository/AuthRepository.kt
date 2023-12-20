@@ -1,6 +1,5 @@
 package com.octocavern.data.repository
 
-import com.octocavern.data.local.ShishkaPrefs
 import com.octocavern.data.model.AuthRequest
 import com.octocavern.data.model.UserAuthDetailsDto
 import com.octocavern.data.remote.TaigaApi
@@ -9,10 +8,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class AuthRepository @Inject constructor(
-    private val api: TaigaApi,
-    private val prefs: ShishkaPrefs,
-) {
+class AuthRepository @Inject constructor(private val api: TaigaApi) {
 
     suspend fun signIn(
         login: String,
