@@ -4,7 +4,7 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.octocavern.auth.LoginUseCase
+import com.octocavern.auth.SignInUseCase
 import com.octocavern.auth.util.AuthError
 import com.octocavern.shishka.R
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     application: Application,
-    private val loginUseCase: LoginUseCase,
+    private val loginUseCase: SignInUseCase,
 ) : AndroidViewModel(application) {
 
     private val _state = MutableStateFlow(LoginUIState())

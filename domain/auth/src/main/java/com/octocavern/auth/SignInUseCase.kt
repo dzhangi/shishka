@@ -6,7 +6,7 @@ import com.octocavern.auth.util.AuthError
 import com.octocavern.data.repository.AuthRepository
 import javax.inject.Inject
 
-class LoginUseCase @Inject constructor(
+class SignInUseCase @Inject constructor(
     private val authRepo: AuthRepository
 ) {
 
@@ -18,7 +18,7 @@ class LoginUseCase @Inject constructor(
         if (login.isEmpty()) throw AuthError.EmptyLogin
         if (password.isEmpty()) throw AuthError.EmptyPassword
 
-        return authRepo.login(
+        return authRepo.signIn(
             login = login.trim(),
             password = password.trim(),
             type = type
