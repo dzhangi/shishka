@@ -9,6 +9,6 @@ interface ProjectApi {
 
     @GET("projects")
     suspend fun getProjects(
-        @Query("member") memberId: Long = 609457,
+        @Query("member") memberId: Int = 609457,
     ): Response<List<ProjectDto>>
 }
