@@ -23,4 +23,5 @@ object Versions {
 
     const val composeActivity = "1.8.0"
     const val composeLifeCycle = "2.6.2"
+    const val composeIcons = "1.5.4"
 }

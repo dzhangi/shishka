@@ -40,6 +40,7 @@ class TokenRefreshInterceptor(
             }
 
             response.code == 401 -> {
+//                response.close() TODO: Need to fix token refresh
                 Log.i(
                     TOKEN_REFRESH_INTERCEPTOR,
                     "Start refresh processing: request ${originalRequest.url} response ${response.code}"
@@ -51,6 +52,7 @@ class TokenRefreshInterceptor(
                 val refreshBodyStr = refreshResponse
                     .peekBody(PEEK_BODY_LIMIT.toLong())
                     .string()
+//                refreshResponse.close() TODO: Need to fix token refresh
 
                 refreshBodyStr.extractJsonField(REFRESH_TOKEN)?.let { prefs.saveRefreshToken(it) }
                 refreshBodyStr.extractJsonField(AUTH_TOKEN)?.let {

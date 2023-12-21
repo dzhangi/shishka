@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/SplashFragment">
+    app:startDestination="@id/LoginFragment">
 
     <fragment
         android:id="@+id/LoginFragment"
@@ -15,5 +15,11 @@
         android:id="@+id/SplashFragment"
         android:name="com.octocavern.splash.ui.SplashFragment"
         android:label="Test Splash Fragment" />
+    <fragment
+        android:id="@+id/projectsFragment"
+        android:name="com.octocavern.project.ProjectsFragment"
+        android:label="ProjectsFragment">
+        <deepLink app:uri="android-app://com.octocavern.app/projects_fragment" />
+    </fragment>
 
 </navigation>

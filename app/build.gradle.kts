@@ -61,4 +61,5 @@ dependencies {
 
     implementation(project(mapOf("path" to ":presentation:splash")))
     implementation(project(mapOf("path" to ":presentation:auth")))
+    implementation(project(mapOf("path" to ":presentation:project")))
 }

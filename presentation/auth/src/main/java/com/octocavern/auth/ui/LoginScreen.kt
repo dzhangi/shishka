@@ -18,6 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -40,22 +41,33 @@ fun LoginScreen(
 ) {
     val uiState by viewModel.state.collectAsState()
 
+    DisposableEffect(Unit) {
+        onDispose {
+            viewModel.resetState()
+        }
+    }
+
     LoginScreenContent(
         uiState = uiState,
-        onLogin = { login, pass -> viewModel.onLogin(login, pass) },
-        onSignUp = { viewModel.onSignUp() }
+        onLogin = { login, pass -> viewModel.signIn(login, pass) },
+        onSignUp = { viewModel.signUp() },
+        onSuccessLogin = { navController.navigate(NavRequests.PROJECTS_SCREEN) },
     )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreenContent(
-    uiState: LoginUIState = LoginUIState(),
+    uiState: LoginUIState,
     onLogin: (String, String) -> Unit = { _, _ -> },
-    onSignUp: () -> Unit = { }
+    onSignUp: () -> Unit = { },
+    onSuccessLogin: () -> Unit = { },
 ) {
     val login = rememberSaveable { mutableStateOf("") }
     val password = rememberSaveable { mutableStateOf("") }
+
+    if (uiState.isSuccess) onSuccessLogin()
+
     ShishkaTheme {
         Surface {
             Column(
@@ -137,5 +149,7 @@ fun LoginScreenContent(
 @Preview
 @Composable
 fun PreviewLoginScreenContent() {
-    LoginScreenContent()
+    LoginScreenContent(
+        uiState = LoginUIState()
+    )
 }

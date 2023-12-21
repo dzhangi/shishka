@@ -11,6 +11,7 @@ package com.octocavern.auth.ui
  * @param authErrorMessage response error cause
  */
 data class LoginUIState(
+    val isSuccess: Boolean = false,
     val isLoading: Boolean = false,
     val isLoginError: Boolean = false,
     val isPasswordError: Boolean = false,
@@ -19,7 +20,19 @@ data class LoginUIState(
     val isAuthError: Boolean = false,
     val authErrorMessage: String = "",
 ) {
+    fun toInit() = copy(
+        isSuccess = false,
+        isLoading = false,
+        isLoginError = false,
+        isPasswordError = false,
+        loginErrorMessage = "",
+        passwordErrorMessage = "",
+        isAuthError = false,
+        authErrorMessage = "",
+    )
+
     fun toSuccess() = copy(
+        isSuccess = true,
         isLoading = false,
         isLoginError = false,
         isPasswordError = false,
