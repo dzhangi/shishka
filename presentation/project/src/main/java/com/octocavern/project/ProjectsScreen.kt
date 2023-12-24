@@ -95,14 +95,14 @@ fun ProjectItem(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Center
                 ) {
-                    ProjectInfo(icon = Icons.Outlined.Person, count = project.members)
+                    ProjectInfoBadges(icon = Icons.Outlined.Person, count = project.members)
                     Spacer(modifier = Modifier.size(2.dp))
-                    ProjectInfo(icon = Icons.Outlined.RemoveRedEye, count = project.watchers)
+                    ProjectInfoBadges(icon = Icons.Outlined.RemoveRedEye, count = project.watchers)
                     Spacer(modifier = Modifier.width(6.dp))
                     if (project.isPrivate) {
-                        ProjectInfo(icon = Icons.Outlined.Public)
+                        ProjectInfoBadges(icon = Icons.Outlined.Public)
                     } else {
-                        ProjectInfo(icon = Icons.Outlined.VpnKey)
+                        ProjectInfoBadges(icon = Icons.Outlined.VpnKey)
                     }
                 }
             }
@@ -112,7 +112,7 @@ fun ProjectItem(
 }
 
 @Composable
-fun ProjectInfo(
+fun ProjectInfoBadges(
     icon: ImageVector,
     count: String = "",
     iconDescription: String = "",
