@@ -61,5 +61,5 @@ dependencies {
     compose(platform("androidx.compose:compose-bom:2023.03.00"))
     coroutines()
 
-    implementation(project(mapOf("path" to ":core:ui")))
+    implementation(project(mapOf("path" to ":common:ui")))
 }

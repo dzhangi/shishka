@@ -62,5 +62,5 @@ dependencies {
     coroutines()
 
     implementation(project(mapOf("path" to ":domain:auth")))
-    implementation(project(mapOf("path" to ":core:ui")))
+    implementation(project(mapOf("path" to ":common:ui")))
 }
