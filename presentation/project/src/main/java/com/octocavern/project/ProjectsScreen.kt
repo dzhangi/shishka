@@ -34,6 +34,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.octocavern.project.model.Project
+import com.octocavern.ui.component.ShimmerWrapper
 import com.octocavern.ui.theme.ShishkaTheme
 
 @Composable

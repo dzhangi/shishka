@@ -1,4 +1,4 @@
-package com.octocavern.project
+package com.octocavern.ui.component
 
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode

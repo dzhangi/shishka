@@ -62,6 +62,6 @@ dependencies {
     retrofit()
     coroutines()
 
-    implementation(project(mapOf("path" to ":core:ui")))
+    implementation(project(mapOf("path" to ":common:ui")))
     implementation(project(":domain:project"))
 }
