@@ -40,7 +40,7 @@ class TokenRefreshInterceptor(
             }
 
             response.code == 401 -> {
-//                response.close() TODO: Need to fix token refresh
+                response.close() // TODO: Need to fix token refresh
                 Log.i(
                     TOKEN_REFRESH_INTERCEPTOR,
                     "Start refresh processing: request ${originalRequest.url} response ${response.code}"
