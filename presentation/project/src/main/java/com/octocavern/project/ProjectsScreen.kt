@@ -61,6 +61,7 @@ fun ProjectsScreenContent(
                     ProjectItem(
                         project = project,
                         onClick = onItemClick,
+                        isLoading = uiState.isLoading,
                     )
                 }
             }
@@ -71,6 +72,7 @@ fun ProjectsScreenContent(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProjectItem(
+    isLoading: Boolean,
     project: Project,
     onClick: (Project) -> Unit,
 ) {
@@ -83,26 +85,51 @@ fun ProjectItem(
             modifier = Modifier.padding(vertical = 8.dp, horizontal = 8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            LetterAvatar(letter = project.name.first(), modifier = Modifier.size(48.dp))
+
+            ShimmerWrapper(
+                isLoading = isLoading,
+                shimmerWidth = 48.dp,
+                shimmerHeight = 48.dp
+            ) {
+                LetterAvatar(letter = project.name.first(), modifier = Modifier.size(48.dp))
+            }
+
             Column(modifier = Modifier.padding(horizontal = 8.dp)) {
-                Text(
-                    text = project.name,
-                    fontWeight = FontWeight.Bold
-                )
-                Text(text = project.slug)
+
+                ShimmerWrapper(isLoading = isLoading, shimmerHeight = 20.dp, shimmerWidth = 160.dp) {
+                    Text(
+                        text = project.name,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+
+                ShimmerWrapper(isLoading = isLoading, shimmerHeight = 20.dp, shimmerWidth = 230.dp) {
+                    Text(text = project.slug)
+                }
+
                 Spacer(modifier = Modifier.size(4.dp))
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center
+
+                ShimmerWrapper(
+                    isLoading = isLoading,
+                    shimmerHeight = 16.dp,
+                    shimmerWidth = 64.dp
                 ) {
-                    ProjectInfoBadges(icon = Icons.Outlined.Person, count = project.members)
-                    Spacer(modifier = Modifier.size(2.dp))
-                    ProjectInfoBadges(icon = Icons.Outlined.RemoveRedEye, count = project.watchers)
-                    Spacer(modifier = Modifier.width(6.dp))
-                    if (project.isPrivate) {
-                        ProjectInfoBadges(icon = Icons.Outlined.Public)
-                    } else {
-                        ProjectInfoBadges(icon = Icons.Outlined.VpnKey)
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        ProjectInfoBadges(icon = Icons.Outlined.Person, count = project.members)
+                        Spacer(modifier = Modifier.size(2.dp))
+                        ProjectInfoBadges(
+                            icon = Icons.Outlined.RemoveRedEye,
+                            count = project.watchers
+                        )
+                        Spacer(modifier = Modifier.width(6.dp))
+                        if (project.isPrivate) {
+                            ProjectInfoBadges(icon = Icons.Outlined.Public)
+                        } else {
+                            ProjectInfoBadges(icon = Icons.Outlined.VpnKey)
+                        }
                     }
                 }
             }
@@ -141,7 +168,7 @@ fun ProjectsScreenPreview() {
     ProjectsScreenContent(
         onItemClick = {},
         uiState = ProjectsUIState(
-            false,
+            true,
             listOf(
                 Project(
                     69,
