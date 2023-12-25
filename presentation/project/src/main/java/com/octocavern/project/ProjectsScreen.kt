@@ -88,8 +88,8 @@ fun ProjectItem(
 
             ShimmerWrapper(
                 isLoading = isLoading,
-                shimmerWidth = 48.dp,
-                shimmerHeight = 48.dp
+                shimmerWidth = 52.dp,
+                shimmerHeight = 52.dp
             ) {
                 LetterAvatar(letter = project.name.first(), modifier = Modifier.size(48.dp))
             }
