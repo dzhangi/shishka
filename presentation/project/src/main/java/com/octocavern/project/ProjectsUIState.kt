@@ -4,5 +4,5 @@ import com.octocavern.project.model.Project
 
 data class ProjectsUIState(
     val isLoading: Boolean = true,
-    val projects: List<Project> = emptyList(),
+    val projects: List<Project> = List(20) { Project(id = it) },
 )

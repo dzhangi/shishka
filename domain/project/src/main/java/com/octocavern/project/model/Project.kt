@@ -4,13 +4,13 @@ import com.octocavern.data.model.ProjectDto
 
 data class Project(
     val id: Int,
-    val slug: String,
-    val name: String,
-    val description: String,
-    val members: String,
-    val iconUrl: String,
-    val watchers: String,
-    val isPrivate: Boolean,
+    val slug: String = "",
+    val name: String = "",
+    val description: String = "",
+    val members: String = "",
+    val iconUrl: String = "",
+    val watchers: String = "",
+    val isPrivate: Boolean = false,
 )
 
 fun ProjectDto.toDomainModel() = Project(
