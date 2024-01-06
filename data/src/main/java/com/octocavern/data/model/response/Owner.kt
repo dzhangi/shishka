@@ -1,4 +1,4 @@
-package com.octocavern.data.model
+package com.octocavern.data.model.response
 
 import com.google.gson.annotations.SerializedName
 

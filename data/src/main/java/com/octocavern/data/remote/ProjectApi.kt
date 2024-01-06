@@ -1,6 +1,6 @@
 package com.octocavern.data.remote
 
-import com.octocavern.data.model.ProjectDto
+import com.octocavern.data.model.response.ProjectDto
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

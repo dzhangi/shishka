@@ -1,6 +1,6 @@
 package com.octocavern.project.model
 
-import com.octocavern.data.model.ProjectDto
+import com.octocavern.data.model.response.ProjectDto
 
 data class Project(
     val id: Int,

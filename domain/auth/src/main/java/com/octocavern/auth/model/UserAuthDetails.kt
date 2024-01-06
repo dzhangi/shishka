@@ -1,6 +1,6 @@
 package com.octocavern.auth.model
 
-import com.octocavern.data.model.UserAuthDetailsDto
+import com.octocavern.data.model.response.UserAuthDetailsDto
 
 data class UserAuthDetails(
     val id: Int,
