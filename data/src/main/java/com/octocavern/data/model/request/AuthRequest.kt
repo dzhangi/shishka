@@ -1,4 +1,4 @@
-package com.octocavern.data.model
+package com.octocavern.data.model.request
 
 data class AuthRequest(
     val username: String,

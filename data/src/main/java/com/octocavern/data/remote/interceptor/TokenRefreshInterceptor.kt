@@ -3,7 +3,7 @@ package com.octocavern.data.remote.interceptor
 import android.util.Log
 import com.google.gson.Gson
 import com.octocavern.data.local.ShishkaPrefs
-import com.octocavern.data.model.RefreshTokenRequest
+import com.octocavern.data.model.request.RefreshTokenRequest
 import com.octocavern.data.util.LogTags.TOKEN_REFRESH_INTERCEPTOR
 import com.octocavern.data.util.MISC.PEEK_BODY_LIMIT
 import com.octocavern.data.util.URL.AUTH_ENDPOINT

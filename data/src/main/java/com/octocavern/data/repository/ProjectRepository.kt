@@ -1,7 +1,7 @@
 package com.octocavern.data.repository
 
 import com.octocavern.data.local.ShishkaPrefs
-import com.octocavern.data.model.ProjectDto
+import com.octocavern.data.model.response.ProjectDto
 import com.octocavern.data.remote.TaigaApi
 import com.octocavern.data.util.extractErrorMessage
 import javax.inject.Inject

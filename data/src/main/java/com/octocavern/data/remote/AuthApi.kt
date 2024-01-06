@@ -1,7 +1,7 @@
 package com.octocavern.data.remote
 
-import com.octocavern.data.model.AuthRequest
-import com.octocavern.data.model.UserAuthDetailsDto
+import com.octocavern.data.model.request.AuthRequest
+import com.octocavern.data.model.response.UserAuthDetailsDto
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
